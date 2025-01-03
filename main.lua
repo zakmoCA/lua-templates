@@ -1,57 +1,43 @@
 local html = require("templater")
 local cli = require("cli")
+local dev = require("dev")
 
-local headerTemplate = [[
-    {{head}}
-    {{title}}
-]]
+local html = require("templater")
 
-local filledHeader = html.template(headerTemplate, {
-  head = html.head("This is a head el"),
-  title = html.title("This is a title el"),
-})
+local headContent = html.head("This is a head el", "This is a title el")
 
-
-local bodyTemplate = [[
-    {{h1}}
-    {{p}}
-]]
-
--- fill template
-local filledBody = html.template(bodyTemplate, {
+local bodyContent = html.template([[{{h1}} {{p}}]], {
     h1 = html.h1("This is a h1 el"),
-    p = html.p("This is a p el"),
+    p = html.p("This is a p el")
 })
 
--- create page
-local page = html.page(filledHeader, filledBody)
+local pageContent = html.page(headContent, bodyContent)
 
--- generates at './index.html'
-html.write("index.html", page)
--- './index.html' ⬇️
+html.write("index.html", pageContent)
+
+-- display page content/markup in terminal
+cli.displayPageContent(pageContent)
+cli.displayMarkup(pageContent)
+
+dev.openWithLiveServer()
+
+-- ⬇️ generated page content with cli.displayPageContent(pageContent)
+-- This is a title el
+
+-- This is a head el
+
+-- This is a h1 el
+
+-- This is a p el
+
+-- ⬇️ generated markup with cli.displayMarkup(pageContent)
 -- <!DOCTYPE html>
--- <html>
---     <head>This is a head el</head>
---     <title>This is a title el</title>
-
--- <body>
---     <h1>This is a h1 el</h1>
---     <p>This is a p el</p>
-
--- </body>
--- </html>
-
-
--- display page content in terminal
-cli.displayPageContent(page)
--- Page Content Preview:
-
-
---     This is a head el
---     This is a title el
-
-
---     This is a h1 el
-
---     This is a p el
+--   <html>
+--     <head>
+--       <title>This is a title el</title>This is a head el</head>
+--       <body>
+--         <h1>This is a h1 el</h1>
+--         <p>This is a p el</p>
+--       </body>
+--     </html>
 
