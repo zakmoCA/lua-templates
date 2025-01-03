@@ -7,6 +7,8 @@ function html.el(tag, content)
 end
 
 -- basic els
+function html.title(content) return html.el("title", content) end
+function html.head(content) return html.el("head", content) end
 function html.p(content) return html.el("p", content) end
 function html.h1(content) return html.el("h1", content) end
 
@@ -19,12 +21,10 @@ function html.template(content, vars)
 end
 
 function html.page(title, body)
-    return string.format([[
+  return string.format([[
 <!DOCTYPE html>
 <html>
-<head>
-    <title>%s</title>
-</head>
+%s
 <body>
 %s
 </body>
