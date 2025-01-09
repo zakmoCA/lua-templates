@@ -29,7 +29,6 @@ end
 function html.template(content, vars)
     local result = content
     for key, value in pairs(vars) do
-        -- Replace `{{key}}` with indented content
         local indentedValue = value:gsub("^(.-)$", "    %1")
         result = result:gsub("{{" .. key .. "}}", indentedValue)
     end
